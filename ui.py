@@ -52,7 +52,7 @@ class Ui_MainWindow(object):
 
         self.InventoryButton = QtWidgets.QPushButton(self.navbar)
         self.InventoryButton.setGeometry(QtCore.QRect(1, 240, 251, 60))
-        self.InventoryButton.setStyleSheet("background-color: #002877;\n""color: white;\n""")
+        self.InventoryButton.setStyleSheet("background-color: #ffffff;\n""color: black;\n""")
         self.InventoryButton.setObjectName("InventoryButton")
 
 
@@ -126,7 +126,7 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.pageAbout)
 
 
-        self.stackedWidget.setCurrentWidget(self.pageInventory)
+        
         MainWindow.setCentralWidget(self.centralwidget)
 
         # event listener
@@ -139,7 +139,7 @@ class Ui_MainWindow(object):
         self.AboutButton.clicked.connect(lambda: self.clicked(self.pageAbout, self.AboutButton))
         self.LogoutButton.clicked.connect(lambda: self.clicked( "exit", "i"))
 
-
+        self.stackedWidget.setCurrentWidget(self.pageInventory)
         self.Font()
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)

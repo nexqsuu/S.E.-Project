@@ -16,7 +16,7 @@ class Ui_MainWindow(object):
     
     
 
-    def setupUi(self, MainWindow):
+   def setupUi(self, MainWindow):
         MainWindow.setObjectName("Gym")
         MainWindow.resize(1200, 800)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -52,7 +52,6 @@ class Ui_MainWindow(object):
 
         self.InventoryButton = QtWidgets.QPushButton(self.navbar)
         self.InventoryButton.setGeometry(QtCore.QRect(1, 240, 251, 60))
-        font = QtGui.QFont()
         self.InventoryButton.setStyleSheet("background-color: #002877;\n""color: white;\n""")
         self.InventoryButton.setObjectName("InventoryButton")
 
@@ -92,71 +91,97 @@ class Ui_MainWindow(object):
         self.LogoutButton.setGeometry(QtCore.QRect(1, 700, 251, 81))
         self.LogoutButton.setStyleSheet("color: white;\n""background-color: black;")
         self.LogoutButton.setObjectName("LOGOUT")
+
+        # Pages
+        self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
+        self.stackedWidget.setGeometry(QtCore.QRect(250, 0, 941, 791))
+        self.stackedWidget.setObjectName("stackedWidget")
+
+        self.pageInventory = QtWidgets.QWidget()
+        self.pageInventory.setObjectName("pageInventory")
+        self.stackedWidget.addWidget(self.pageInventory)
+
+        self.pageRegistration = QtWidgets.QWidget()
+        self.pageRegistration.setObjectName("pageRegistration")
+        self.stackedWidget.addWidget(self.pageRegistration)
+
+        self.pageScheduling = QtWidgets.QWidget()
+        self.pageScheduling.setObjectName("pageScheduling")
+        self.stackedWidget.addWidget(self.pageScheduling)
+
+        self.pageReports = QtWidgets.QWidget()
+        self.pageReports.setObjectName("pageReports")
+        self.stackedWidget.addWidget(self.pageReports)
+
+        self.pagePayment = QtWidgets.QWidget()
+        self.pagePayment.setObjectName("pagePayment")
+        self.stackedWidget.addWidget(self.pagePayment)
+
+        self.pageHelp = QtWidgets.QWidget()
+        self.pageHelp.setObjectName("pageHelp")
+        self.stackedWidget.addWidget(self.pageHelp)
+
+        self.pageAbout = QtWidgets.QWidget()
+        self.pageAbout.setObjectName("pageAbout")
+        self.stackedWidget.addWidget(self.pageAbout)
+
+
+        self.stackedWidget.setCurrentWidget(self.pageInventory)
         MainWindow.setCentralWidget(self.centralwidget)
 
         # event listener
-        self.InventoryButton.clicked.connect(lambda: self.clicked(1))
-        self.RegistrationButton.clicked.connect(lambda: self.clicked(2))
-        self.SchedulingButton.clicked.connect(lambda: self.clicked(3))
-        self.ReportsButton.clicked.connect(lambda: self.clicked(4))
-        self.PaymentButton.clicked.connect(lambda: self.clicked(5))
-        self.HelpButton.clicked.connect(lambda: self.clicked(6))
-        self.AboutButton.clicked.connect(lambda: self.clicked(7))
-        self.LogoutButton.clicked.connect(lambda: self.clicked(8))
+        self.InventoryButton.clicked.connect(lambda: self.clicked(self.pageInventory, self.InventoryButton))
+        self.RegistrationButton.clicked.connect(lambda: self.clicked(self.pageRegistration, self.RegistrationButton))
+        self.SchedulingButton.clicked.connect(lambda: self.clicked(self.pageScheduling, self.SchedulingButton))
+        self.ReportsButton.clicked.connect(lambda: self.clicked(self.pageReports, self.ReportsButton))
+        self.PaymentButton.clicked.connect(lambda: self.clicked(self.pagePayment, self.PaymentButton))
+        self.HelpButton.clicked.connect(lambda: self.clicked(self.pageHelp, self.HelpButton))
+        self.AboutButton.clicked.connect(lambda: self.clicked(self.pageAbout, self.AboutButton))
+        self.LogoutButton.clicked.connect(lambda: self.clicked( "exit", "i"))
+
 
         self.Font()
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         
-    def Font(self):
-
-      buttons = {
-            self.InventoryButton, self.RegistrationButton, self.SchedulingButton, 
-            self.ReportsButton, self.PaymentButton, self.HelpButton, self.AboutButton,
-            self.LogoutButton
-      }
-
+   def Font(self):
       font = QtGui.QFont()
       font.setFamily("Roboto")
       font.setPointSize(10)
       font.setBold(True)
       font.setWeight(75)
       font.setKerning(True)
-
+      buttons = {
+            self.InventoryButton, self.RegistrationButton, self.SchedulingButton, 
+            self.ReportsButton, self.PaymentButton, self.HelpButton, self.AboutButton,
+            self.LogoutButton
+      }
       for i in buttons:
          i.setFont(font)
 
 
-    def clicked(self, which):  
-        if which == 1:
-           self.content.setText("Inventory")
-           self.update()
-        if which == 2:
-           self.content.setText("Registration")
-           self.update()
-        if which == 3:
-           self.content.setText("Scheduling")
-           self.update()
-        if which == 4:
-           self.content.setText("Reports")
-           self.update()
-        if which == 5:
-           self.content.setText("Payment")
-           self.update()
-        if which == 6:
-           self.content.setText("Help")
-           self.update()
-        if which == 7:
-           self.content.setText("About")
-           self.update()
-        if which == 8:
-           self.content.setText("Logout")
-           self.update()
+   def clicked(self, page, button): 
+      if page == "exit":
+         sys.exit(app.exec_())
+      else:
+         self.stackedWidget.setCurrentWidget(page)
+         self.update(button)
 
-    def update(self):
-        self.content.adjustSize()
 
-    def retranslateUi(self, MainWindow):
+   def update(self, active):
+      buttons = {
+            self.InventoryButton, self.RegistrationButton, self.SchedulingButton, 
+            self.ReportsButton, self.PaymentButton, self.HelpButton, self.AboutButton
+      }
+
+      for i in buttons:
+         if i == active:
+            i.setStyleSheet("background-color: #ffffff;\n""color: black;\n""")
+         else:
+            i.setStyleSheet("background-color: #002877;\n""color: white;\n""")
+
+
+   def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.InventoryButton.setText(_translate("MainWindow", "INVENTORY"))

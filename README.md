@@ -3,22 +3,22 @@ Using pyqt5 the following program is to be developed:
 [] Database using sql
 [] Functions
 
-  GUI:
+  GUI
   [] Login Screen
   [] Management screen
 
-    Login:
+    Login
     [] Username Input Box
     [] Password Input Box
     [] Gym Logo
     [] Login Button
 
-    Management:
+    Management
     [] Admin
     [] Staff
 
 
-      Admin:
+      Admin
       [] Inventory
       [] Registration
       [] Scheduling
@@ -30,7 +30,7 @@ Using pyqt5 the following program is to be developed:
       [] About
       [] Logout
 
-      Staff:
+      Staff
       [x] Inventory
       [x] Registration
       [x] Scheduling
@@ -40,5 +40,5 @@ Using pyqt5 the following program is to be developed:
       [x] About
       [x] Logout
 
-  Functions:
+  Functions
   TBD
